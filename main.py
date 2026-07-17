@@ -33,20 +33,20 @@ try:
             user_class.budget  = info["budget"]
             user_class.income  = info["income"]
             user_class.expense = info["expense"]
+            user_class.set_budget_limit = info["set_budget_limit"]
         else:
             
             username = input('Enter username: ')
             user_class = Instance_methods.User(username)
-            set_budget_limit = False
         while True:
             print('\n========== BUDGET TRACKER ==========')
             print(f'User: {user_class.username}')
             print(f'Balance: {user_class.balance} BDT')
-            if set_budget_limit == True:
+            if user_class.set_budget_limit == True:
                 print(f'Budget Limit: {user_class.budget} BDT')
             print()
             remaining = user_class.budget - user_class.total_expense()
-            if set_budget_limit == True:
+            if user_class.set_budget_limit == True:
                 if remaining <0:
                     print(f"  * WARNING: Already over budget by {abs(remaining):.2f} BDT!\n")
                 else:
@@ -62,7 +62,7 @@ try:
                     function.view_history(user_class)
                 case '4':
                     function.set_budget(user_class)
-                    set_budget_limit = True
+                    user_class.set_budget_limit = True
                 case '5':
                     function.search_by_category(user_class)
                 case '6':
