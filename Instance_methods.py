@@ -8,6 +8,7 @@ class User:
         self.username = username
         self.balance = 0.0
         self.budget = 0.0
+        self.set_budget_limit = False
         self.income = []
         self.expense = []
         self.categories = ("Food", "Transport", "Bills", "Health", "Shopping", "Education", "Other")
@@ -91,4 +92,4 @@ class User:
         print(f"Average Expense: {np.mean(amounts):.2f} BDT")
         print(f"Highest Entry: {np.max(amounts):.2f} BDT")
         print(f"Lowest Entry: {np.min(amounts):.2f} BDT")
-        print(f"Categories Used: {user.categories}")
+        print(f"Categories Available: {user.categories}")
