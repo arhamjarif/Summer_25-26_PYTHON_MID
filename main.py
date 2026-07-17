@@ -1,39 +1,7 @@
 import os.path,json, function, Instance_methods
+from file_handling import *
 
-def save(user_class:object):
-    json_data = user_class.__dict__
-    with open('info.json') as file:
-        save_file = json.load(file)
-    save_file[user_class.username] = json_data
-    with open('info.json', 'wt') as file:
-        json.dump(save_file,file)
-    print('Saved successfully.')
 
-def delete_user(file_data):
-    users = list(file_data.keys())
-    if len(users) == 0:
-        print('No users to delete')
-        return
-    print('Available users:')
-    iterator = 1
-    for user in users:
-        print(f'{iterator}. {user}')
-        iterator += 1
-    while True:
-        try:
-            choice = int(input('Select user to delete: '))
-            if 1 <= choice <= iterator:
-                del file_data[users[choice-1]]
-                with open('info.json') as file:
-                    save_file = json.load(file)
-                del save_file[users[choice-1]]
-                with open('info.json','wt') as file:
-                    json.dump(save_file,file)
-                print(f'Successfully deleted {users[choice-1]}')
-                break
-            print('Invalid input. Please try again.')
-        except Exception:
-            print('Invalid input. Please try again.')
 if not os.path.exists('info.json'):
     with open('info.json','w') as file:
         empty = {}
@@ -69,17 +37,20 @@ try:
             
             username = input('Enter username: ')
             user_class = Instance_methods.User(username)
-            
+            set_budget_limit = False
         while True:
-            print('\n\n========== BUDGET TRACKER ==========')
+            print('\n========== BUDGET TRACKER ==========')
             print(f'User: {user_class.username}')
             print(f'Balance: {user_class.balance} BDT')
-            print(f'Budget Limit: {user_class.budget} BDT\n\n')
+            if set_budget_limit == True:
+                print(f'Budget Limit: {user_class.budget} BDT')
+            print()
             remaining = user_class.budget - user_class.total_expense()
-            if remaining <0:
-                print(f"  * WARNING: Already over budget by {abs(remaining):.2f} BDT!")
-            else:
-                print(f"  * {remaining:.2f} BDT remaining.")
+            if set_budget_limit == True:
+                if remaining <0:
+                    print(f"  * WARNING: Already over budget by {abs(remaining):.2f} BDT!\n")
+                else:
+                    print(f"  * {remaining:.2f} BDT remaining.\n")
             print('1. Add Entry\n2. Delete Entry\n3. View History\n4. Set Budget\n5. Search by Category\n6. Statistics\n7. Save \n8. Delete user\n9. Quit\n')
             choice = input('Select option: ')
             match choice:
@@ -91,6 +62,7 @@ try:
                     function.view_history(user_class)
                 case '4':
                     function.set_budget(user_class)
+                    set_budget_limit = True
                 case '5':
                     function.search_by_category(user_class)
                 case '6':
@@ -98,7 +70,7 @@ try:
                 case '7':
                     save(user_class)
                 case '8':
-                    delete_user(file_data)
+                    delete_user()
                 case '9':
                     break
 
