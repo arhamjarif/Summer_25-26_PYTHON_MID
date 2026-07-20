@@ -16,9 +16,9 @@ This application allows users to manage personal finances by recording income an
 
 ## 2. Technologies:
 
-Python 3
-JSON
-NumPy
+- Python 3
+- JSON
+- NumPy
 
 ## 3. Installation:
 
@@ -30,13 +30,13 @@ python main.py
 
 ## 5. Project Structure:
 
-main.py
-Instance_methods_&_calculations.py
-function.py
-validity.py
-file_handling.py
-requirements.txt
-info.json
+- main.py
+- Instance_methods.py
+- function.py
+- validity.py
+- file_handling.py
+- requirements.txt
+- info.json
 
 ## 6. Team Contributions:
 
