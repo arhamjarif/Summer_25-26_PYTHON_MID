@@ -78,7 +78,10 @@ class User:
                 print(f"{i}. {e['date']}  [{e['category']}]  -{e['amount']:.2f} BDT")
 
         idx = get_valid_int("Enter number to delete: ", 1, len(entries))
-        entries.pop(idx - 1)
+        if entry_type == 'income':
+            self.balance -= entries.pop(idx -1)['amount']
+        else:
+            self.balance += entries.pop(idx -1)['amount']
         print("Entry deleted!")
         
     def show_statistics(user):
